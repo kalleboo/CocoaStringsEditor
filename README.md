@@ -21,8 +21,8 @@ The good:
 
 The bad / TODO:
 * Naive parser.
-* * Will NSAssert() and bail out when its naive string-matching expectations aren't met.
-* * Will ignore certain errors and only log to console (missing comments, duplicate keys)
+ * Will NSAssert() and bail out when its naive string-matching expectations aren't met.
+ * Will ignore certain errors and only log to console (missing comments, duplicate keys)
 * Does no escaping or unescaping of strings, so you'll have to do that while editing.
 * Can't add or remove rows
 * Can't edit keys or comments

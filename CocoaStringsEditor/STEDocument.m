@@ -173,7 +173,9 @@
             row[@"key"] = key;
             row[@"comment"] = [self.stringsFiles[self.defaultStringsLanguage] commentForKey:key];
             for (NSString* lang in self.stringsFiles) {
-                row[lang] = [self.stringsFiles[lang] valueForKey:key];
+                NSString* value = [self.stringsFiles[lang] valueForKey:key];
+                if (value)  //skip missing languages
+                    row[lang] = value;
             }
             [copiedRows addObject:row];
         }];
@@ -207,6 +209,9 @@
         }
         
         for (NSString* lang in self.stringsFiles) {
+            if (!row[lang]) //skip missing languages
+                continue;
+            
             STEStringsFile* file = self.stringsFiles[lang];
             [file setValue:row[lang] forKey:key];
             [file setComment:comment forKey:key];

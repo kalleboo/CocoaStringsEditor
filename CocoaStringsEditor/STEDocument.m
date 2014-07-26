@@ -139,6 +139,27 @@
 
 #pragma mark - Copy/Paste
 
+-(IBAction)cut:(id)sender {
+    [self copy:sender];
+
+    if ([self.tableView selectedRow]>-1) {
+        NSMutableArray* keysToDelete = [NSMutableArray array];
+        
+        [[self.tableView selectedRowIndexes] enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            [keysToDelete addObject:[self allKeys][idx]];
+        }];
+        
+        for (NSString* key in keysToDelete) {
+            for (NSString* lang in self.stringsFiles) {
+                STEStringsFile* file = self.stringsFiles[lang];
+                [file removeKey:key];
+            }
+        }
+
+        [self.tableView reloadData];
+    }
+}
+
 - (IBAction)copy:(id)sender {
     if ([self.tableView selectedRow]>-1) {
         NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
